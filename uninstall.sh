@@ -2,15 +2,15 @@
 
 set -e
 
-kubectl delete -f deploy/validating-webhook-ca-bundle.yaml
-kubectl delete -f deploy/service.yaml
-kubectl delete -f deploy/deployment.yaml
-kubectl delete -f deploy/whitelist-configmap.yaml
-kubectl delete -f deploy/docker-daemon.yaml
+kubectl delete -f manifests/validating-webhook-ca-bundle.yaml
+kubectl delete -f manifests/service.yaml
+kubectl delete -f manifests/deployment.yaml
+kubectl delete -f manifests/whitelist-configmap.yaml
+kubectl delete -f manifests/docker-daemon.yaml
 
-kubectl delete -f deploy/role/role-binding.yaml
-kubectl delete -f deploy/role/role.yaml
-kubectl delete -f deploy/role/account.yaml
+kubectl delete -f manifests/role/role-binding.yaml
+kubectl delete -f manifests/role/role.yaml
+kubectl delete -f manifests/role/account.yaml
 
 kubectl delete secret image-validation-admission-certs
 

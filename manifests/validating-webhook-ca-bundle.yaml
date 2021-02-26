@@ -1,0 +1,22 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+    name: image-validation-admission
+    namespace: registry-system
+webhooks:
+    - name: image-validation-admission.tmax-cloud.github.com
+      clientConfig:
+        service:
+            name: image-validation-admission-svc
+            path: "/validate"
+            namespace: registry-system
+            port: 443
+        caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1ERXdOekF3TlRjeE9Wb1hEVE14TURFd05UQXdOVGN4T1Zvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBS0trCmpDcnBOZ2FhUHlxRm8xeXM0YktBS2xRUGhFMDhnUTVTV3ZNRmoxMC96NlE1elpKaG1xdzI1Zy9ybDBRbjNwSHoKaEYrQ3MzMUs0QjZUbngyTnNxRzhmd3FVNVF3Sm9ZOWN6ZklYN2FEbGMyNnQ5RnQ2d05kZENROHV2WG5HNStKTwpmUHpGNmR3QmJ3ZmpPUFRSZG4xRzBra2RlUWpDcm1qZ1ltNlc5eHpDb2lweFllVFZFM2sxWTQwaDdnNXRyeThGCmlXdTlKQkVvQUNJRmg1Wk5sOG9sdWdrem4zU2l0ZVdhQ1FlcE9Pb1ZTWmlMM2xTU2FMZ3NWUXR2UlBsTS9VN0sKU3dpckk4VmhLL05IbVMrWGZlaWx6WEpwbTNOUGFVZEVPZGNrRDg5YjYweHZoWVJLR1Ixam1lV2tlQ3N4alNVLwpRQnNRMFhHdm9Tc1VENWpOOXRrQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZMWG54dU1ZOTBrTS9pQ3l0MElVWVZ0ZGY4K2JNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFCSTJHZFp3dTdPRy9qcTBhbGNHcXZnaDZMdVlYQXcwL1FWVTVmU0luZUdOMzlveXp2MApYZWV6ZWRXRzlYbjBiMFJxK2pGWm11dkV6WVJOS3dMNzl3K1JzVGs2N0g1ZHFBTWo0TnVIc2NmdFNnUEdlOHpUClhWU0Y2VVNjYTB6N21QYmtzSEJIdWRiS2FhVDFqb0E4TlB4NXhuYVBUTGxJQ283RVgwSHBxcXEva0ZHTmVpcE0KWGRvOHRFUHB3S1lDeWt0Ri9IaE8wZ29wYmFzR041WXh1KzJTNWF1MnRueGY5eVhyeXltZThYcExCeDl0MGNmUAozT3YzazJRT2VCSGVIaDB5NGRBTnRVLy94QVRlUEhoUVF2Qyt0WFI4czBDN3l0bTNNZWtXSjVzb0hYTXVpc29JCkFhWGpkdjZBd25sQVkya0xhWmpOcDV5V200MldIcWlucnpNUQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+      rules:
+        - operations: ["CREATE"]
+          apiGroups: ["*"]
+          apiVersions: ["*"]
+          resources:
+            - "pods"
+      failurePolicy: Fail
+      matchPolicy: Equivalent
