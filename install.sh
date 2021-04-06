@@ -5,7 +5,7 @@ set -e
 bash manifests/webhook-create-signed-cert.sh
 cat manifests/validating-webhook.yaml | bash manifests/webhook-patch-ca-bundle.sh > manifests/validating-webhook-ca-bundle.yaml
 
-kubectl apply -f config/crd/tmax.io_signerpolicies.yaml
+kubectl apply -f manifests/crd/tmax.io_signerpolicies.yaml
 kubectl apply -f manifests/role/account.yaml
 kubectl apply -f manifests/role/role.yaml
 kubectl apply -f manifests/role/role-binding.yaml
