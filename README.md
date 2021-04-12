@@ -9,9 +9,11 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
     ```bash
     # 이미지 pull
     docker pull ghkimkor/image-validation-webhook
+    docker pull docker:19.03.0-beta5-dind
 
     # 이미지 save
     docker save ghkimkor/image-validation-webhook > image-validation-webhook.tar
+    docker save docker:19.03.0-beta5-dind > docker.tar
     ```
 
 2. 폐쇄망으로 이미지 압축파일(.tar)을 옮깁니다.
@@ -23,15 +25,18 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
 
     # 이미지 Load
     docker load < image-validation-webhook.tar
+    docker load < docker.tar
 
     # 이미지 Tag
     docker tag ghkimkor/image-validation-webhook ${REGISTRY}/ghkimkor/image-validation-webhook
+    docker tag docker:19.03.0-beta5-dind ${REGISTRY}/docker:19.03.0-beta5-dind
 
     # 이미지 Push
     docker push ${REGISTRY}/ghkimkor/image-validation-webhook
+    docker push ${REGSITRY}/docker:19.03.0-beta5-dind
     ```
 
-4. deploy/deployment의 spec에서 webhook container의 image를 폐쇄망 레지스트리의 이미지로 설정합니다.
+4. manifests/deployment.yaml의 spec에서 webhook container의 image를 폐쇄망 레지스트리의 이미지로 설정합니다.
     ```yaml
     apiVersion: apps/v1
     kind: Deployment
@@ -70,8 +75,49 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
                         name: image-validation-webhook-whitelist                      
                 serviceAccountName: image-validation-webhook
     ```
+5. 마찬가지로 manifests/docker-daemon.yaml의 spec에서 docker daemon의 image를 폐쇄망 레지스트리의 이미지로 설정합니다.
+   ```yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+        name: docker-daemon
+        namespace: registry-system
+        labels:
+            name: docker-daemon
+    spec:
+        replicas: 1
+        selector:
+        matchLabels:
+            app: docker-daemon
+        template:
+            metadata:
+                labels:
+                    app: docker-daemon
+            spec:
+                containers:
+                    - name: dind-daemon
+                    image: ${REGISTRY}/docker:19.03.0-beta5-dind
+                    imagePullPolicy: IfNotPresent
+                    securityContext: 
+                        privileged: true 
+                    volumeMounts:
+                        - name: docker-graph-storage
+                        mountPath: /var/lib/docker
+                        - name: root-ca
+                        mountPath: /usr/local/share/ca-certificates
+                    lifecycle:
+                        postStart:
+                            exec:
+                            command: ["/bin/sh", "-c", "update-ca-certificates"]
+                volumes:
+                    - name: docker-graph-storage
+                    emptyDir: {}
+                    - name: root-ca
+                    secret:
+                        secretName: registry-ca
+   ```
 
-5. install.sh를 실행합니다.
+6. install.sh를 실행합니다.
     ```bash
     bash install.sh
     ```
