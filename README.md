@@ -33,7 +33,7 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
 
     # 이미지 Push
     docker push ${REGISTRY}/ghkimkor/image-validation-webhook
-    docker push ${REGSITRY}/docker:19.03.0-beta5-dind
+    docker push ${REGISTRY}/docker:19.03.0-beta5-dind
     ```
 
 4. manifests/deployment.yaml의 spec에서 webhook container의 image를 폐쇄망 레지스트리의 이미지로 설정합니다.
