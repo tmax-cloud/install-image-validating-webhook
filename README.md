@@ -8,11 +8,11 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
 1. 외부 네트워크 통신이 가능한 환경에서 필요한 이미지를 다운받습니다.
     ```bash
     # 이미지 pull
-    docker pull ghkimkor/image-validation-webhook
+    docker pull tmaxcloudck/image-validation-webhook
     docker pull docker:19.03.0-beta5-dind
 
     # 이미지 save
-    docker save ghkimkor/image-validation-webhook > image-validation-webhook.tar
+    docker save tmaxcloudck/image-validation-webhook > image-validation-webhook.tar
     docker save docker:19.03.0-beta5-dind > docker.tar
     ```
 
@@ -28,11 +28,11 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
     docker load < docker.tar
 
     # 이미지 Tag
-    docker tag ghkimkor/image-validation-webhook ${REGISTRY}/ghkimkor/image-validation-webhook
+    docker tag tmaxcloudck/image-validation-webhook ${REGISTRY}/tmaxcloudck/image-validation-webhook
     docker tag docker:19.03.0-beta5-dind ${REGISTRY}/docker:19.03.0-beta5-dind
 
     # 이미지 Push
-    docker push ${REGISTRY}/ghkimkor/image-validation-webhook
+    docker push ${REGISTRY}/tmaxcloudck/image-validation-webhook
     docker push ${REGISTRY}/docker:19.03.0-beta5-dind
     ```
 
@@ -57,7 +57,7 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
             spec:
                 containers:
                     - name: webhook
-                    image: ${REGISTRY}/ghkimkor/image-validation-webhook
+                    image: ${REGISTRY}/tmaxcloudck/image-validation-webhook
                     imagePullPolicy: Always
                     volumeMounts:
                         - name: webhook-certs

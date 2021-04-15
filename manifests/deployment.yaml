@@ -17,8 +17,8 @@ spec:
         spec:
             containers:
                 - name: webhook
-                  image: ghkimkor/image-validation-webhook
-                  imagePullPolicy: Always
+                  image: tmaxcloudck/image-validation-webhook:5.0
+                  imagePullPolicy: IfNotPresent
                   volumeMounts:
                     - name: webhook-certs
                       mountPath: /etc/webhook/certs
