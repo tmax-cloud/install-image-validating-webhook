@@ -117,7 +117,25 @@ project repo: https://github.com/tmax-cloud/image-validating-webhook
                         secretName: registry-ca
    ```
 
-6. install.sh를 실행합니다.
+6. manifests/whitelist-configmap.yaml의 image white list의 아래 예시처럼 폐쇄망 레지스트리를 사용하도록 변경합니다.
+   ```yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+    name: image-validation-webhook-whitelist
+    namespace: registry-system
+    data:
+    whitelist-image.json: |-
+        [
+        "${REGISTRY}/tmaxcloudck/image-validation-webhook",
+        "${REGISTRY}/registry:2.7.1",
+        "${REGISTRY}/tmaxcloudck/notary_mysql:0.6.2-rc2",
+        "${REGISTRY}/tmaxcloudck/notary_server:0.6.2-rc1",
+        "${REGISTRY}/tmaxcloudck/notary_signer:0.6.2-rc1"
+        ]
+   ```
+
+7. install.sh를 실행합니다.
     ```bash
     bash install.sh
     ```
