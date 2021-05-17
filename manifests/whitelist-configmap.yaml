@@ -5,7 +5,13 @@ metadata:
   namespace: registry-system
 data:
   whitelist-image.json: |-
-    ["image-validation-webhook"]
+    [
+      "tmaxcloudck/image-validation-webhook",
+      "registry:2.7.1",
+      "tmaxcloudck/notary_mysql:0.6.2-rc2",
+      "tmaxcloudck/notary_server:0.6.2-rc1",
+      "tmaxcloudck/notary_signer:0.6.2-rc1"
+    ]
   whitelist-namespace.json: |-
     [
       "capa-system",
