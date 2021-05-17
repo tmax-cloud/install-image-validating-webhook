@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 set -e
 
@@ -10,7 +10,6 @@ kubectl apply -f manifests/role/account.yaml
 kubectl apply -f manifests/role/role.yaml
 kubectl apply -f manifests/role/role-binding.yaml
 
-kubectl apply -f manifests/docker-daemon.yaml
 kubectl apply -f manifests/whitelist-configmap.yaml
 kubectl apply -f manifests/deployment.yaml
 kubectl apply -f manifests/service.yaml
