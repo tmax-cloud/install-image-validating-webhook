@@ -9,6 +9,7 @@ rules:
   resources:
   - pods/exec
   - pods
+  - configmaps
   verbs:
   - create
   - delete
@@ -32,4 +33,5 @@ rules:
   resources:
   - secrets
   verbs:
+  - get
   - list
