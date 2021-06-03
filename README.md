@@ -1,48 +1,22 @@
 # Image Validating Webook 설치 가이드
 project repo: https://github.com/tmax-cloud/image-validating-webhook
 
+## 구성 요소 및 버전
+* tmaxcloudck/image-validation-webhook ([tmaxcloudck/image-validation-webhook:v5.0.1](https://hub.docker.com/layers/tmaxcloudck/image-validation-webhook/v5.0.1/images/sha256-946c3c6b211e3cd857126b912bb68504333a3059e9c554108a63f8994aca4ea0?context=explore))
+
 ## Install (폐쇄망 X)
 폐쇄망이 아닌 경우에는 상기한 project repo의 install guide를 참고합니다.
 
 ## Install (폐쇄망 구축 가이드)
-1. 외부 네트워크 통신이 가능한 환경에서 필요한 이미지를 다운받습니다.
-    ```bash
-    # Webhook 버전
-    VERSION=v5.0.1
+1. tmaxcloudck/image-validation-webhook 이미지 레지스트리에 추가  
+    - [install-registry 이미지 푸시하기 참조](https://github.com/tmax-cloud/install-registry/blob/5.0/podman.md)
 
-    # 이미지 pull
-    docker pull tmaxcloudck/image-validation-webhook:$VERSION
-
-    # 이미지 save
-    docker save tmaxcloudck/image-validation-webhook:$VERSION > image-validation-webhook.tar
-    ```
-
-2. 폐쇄망으로 이미지 압축파일(.tar)을 옮깁니다.
-   
-3. 폐쇄망에서 사용하는 registry에 이미지를 push 합니다.
-    ```bash
-    # Webhook 버전
-    VERSION=v5.0.1
-   
-    # 이미지 레지스트리 주소
-    REGISTRY=[IP:PORT]
-
-    # 이미지 Load
-    docker load < image-validation-webhook.tar
-
-    # 이미지 Tag
-    docker tag tmaxcloudck/image-validation-webhook:$VERSION $REGISTRY/tmaxcloudck/image-validation-webhook:$VERSION
-
-    # 이미지 Push
-    docker push $REGISTRY/tmaxcloudck/image-validation-webhook:$VERSION
-    ```
-
-4. Deployment 수정
+2. Deployment 수정
    ```bash
    sed -i "s/image:[ \t]*tmaxcloudck\/image-validation-webhook[^\n]*/image: $REGISTRY\/tmaxcloudck\/image-validation-webhook:$VERSION/" manifests/deployment.yaml
    ```
 
-5. install.sh를 실행합니다.
+3. install.sh를 실행합니다.
     ```bash
     bash install.sh
     ```
