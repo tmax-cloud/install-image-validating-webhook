@@ -2,7 +2,7 @@
 project repo: https://github.com/tmax-cloud/image-validating-webhook
 
 ## 구성 요소 및 버전
-* tmaxcloudck/image-validation-webhook ([tmaxcloudck/image-validation-webhook:v5.0.1](https://hub.docker.com/layers/tmaxcloudck/image-validation-webhook/v5.0.1/images/sha256-946c3c6b211e3cd857126b912bb68504333a3059e9c554108a63f8994aca4ea0?context=explore))
+* tmaxcloudck/image-validation-webhook ([tmaxcloudck/image-validation-webhook:v5.0.2](https://hub.docker.com/layers/tmaxcloudck/image-validation-webhook/v5.0.2/images/sha256-f474ff8c40568ea7be9c203c1138ed3ca8c16fa372b11c23f50fbd79fc2a4164?context=repo))
 
 ## Install (폐쇄망 X)
 폐쇄망이 아닌 경우에는 상기한 project repo의 install guide를 참고합니다.
